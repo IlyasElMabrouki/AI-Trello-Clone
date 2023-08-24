@@ -7,7 +7,13 @@ import Avatar from 'react-avatar';
 export default function Header() {
   return (
     <header>
-      <div className="flex flex-col md:flex-row items-center p-5 bg-gray-500/10 rounded-b-2xl">
+      <div className="flex flex-col md:flex-row items-center p-5 bg-gray-400/10 rounded-b-2xl">
+        <div
+          className="absolute top-0 left-0 w-full h-96 
+          bg-gradient-to-br from-pink-400 to-[#0055D1] 
+          rounded-md filter blur-3xl opacity-50 -z-50"
+        />
+
         <Image
           src="/trello-logo.png"
           alt="Trello Logo"
@@ -15,7 +21,7 @@ export default function Header() {
           height={100}
           className="w-44 md:w-56 pb-10 md:pb-0 object-contain"
         />
-        <div className='flex items-center space-x-5 flex-1 justify-end w-full'>
+        <div className="flex items-center space-x-5 flex-1 justify-end w-full">
           <form
             className="flex items-center space-x-5 bg-white p-2 
                     shadow-md flex-1 md:flex-initial"
@@ -33,6 +39,16 @@ export default function Header() {
 
           <Avatar name="Ilyas ElMabrouki" round size="50" />
         </div>
+      </div>
+
+      <div className="flex items-center justify-center px-5 py-2 md:py-5">
+        <p
+          className="flex items-center p-5 text-sm pr-5 shadow-xl rounded-xl 
+        w-fit bg-white italic max-w-3xl text-blue-500"
+        >
+          <UserCircleIcon className="inline-block h-10 w-10 text-blue-500 mr-1" />
+          GPT is summarising your tasks for the day ...
+        </p>
       </div>
     </header>
   );
