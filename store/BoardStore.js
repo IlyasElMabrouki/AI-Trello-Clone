@@ -6,6 +6,11 @@ export const useBoardStore = create((set) => ({
   board: {
     columns: new Map(),
   },
+
+  searchString : "",
+  
+  setSearchString: (searchString) => set({searchString}),
+
   getBoard: async () => {
     const board = await getTodosGroupedByColumn();
     //To affect the value to board state
