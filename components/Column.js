@@ -40,7 +40,7 @@ export default function Column({ id, todos, index }) {
                   {todos.map((todo, index) => (
                     <Draggable
                       key={todo.id}
-                      draggableId={todo.id}
+                      draggableId={todo.$id}
                       index={index}
                     >
                       {(provided) => (
