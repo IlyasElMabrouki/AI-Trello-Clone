@@ -49,4 +49,13 @@ export const useBoardStore = create((set, get) => ({
       todo.$id
     );
   },
+
+  newTaskInput: '',
+  setNewTaskInput: (newTaskInput) => set({ newTaskInput }),
+
+  newTaskType: 'todo',
+  setNewTaskType: (id) => set({ newTaskType: id }),
+
+  image: null,
+  setImage: (image) => set({ image }),
 }));
