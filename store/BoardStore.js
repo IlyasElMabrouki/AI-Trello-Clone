@@ -1,15 +1,15 @@
-import { databases } from '@/appwrite';
+import { databases, storage } from '@/appwrite';
 import { getTodosGroupedByColumn } from '@/lib/getTodosGroupedByColumn';
 import { create } from 'zustand';
 
-export const useBoardStore = create((set) => ({
+export const useBoardStore = create((set, get) => ({
   board: {
     columns: new Map(),
   },
 
-  searchString : "",
-  
-  setSearchString: (searchString) => set({searchString}),
+  searchString: '',
+
+  setSearchString: (searchString) => set({ searchString }),
 
   getBoard: async () => {
     const board = await getTodosGroupedByColumn();
@@ -29,5 +29,24 @@ export const useBoardStore = create((set) => ({
         status: columnId,
       }
     );
-  }
+  },
+
+  deleteTask: async (taskIndex, todo, id) => {
+    const newColunms = new Map(get().board.columns);
+
+    //delete todoId from newColumns
+    newColunms.get(id)?.todos.splice(taskIndex, 1);
+
+    set({ board: { columns: newColunms } });
+
+    if (todo.image) {
+      await storage.deleteFile(todo.image.bucketId, todo.image.fileId);
+    }
+
+    await databases.deleteDocument(
+      process.env.NEXT_PUBLIC_DATABASE_ID,
+      process.env.NEXT_PUBLIC_TODOS_COLLECTION_ID,
+      todo.$id
+    );
+  },
 }));
