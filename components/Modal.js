@@ -15,18 +15,31 @@ function Modal() {
     state.closeModal,
   ]);
 
-  const [image, setImage, newTaskInput, setNewTaskInput] = useBoardStore(
-    (state) => [
+  const [addTask, image, setImage, newTaskInput, setNewTaskInput, newTaskType] =
+    useBoardStore((state) => [
+      state.addTask,
       state.newTaskInput,
       state.setNewTaskInput,
       state.image,
       state.setImage,
-    ]
-  );
+      state.newTaskType,
+    ]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    addTask(newTaskInput, newTaskType, image);
+    setImage(null);
+    closeModal();
+  };
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="form" className="relative z-10" onClose={closeModal}>
+      <Dialog
+        as="form"
+        className="relative z-10"
+        onClose={closeModal}
+        onSubmit={handleSubmit}
+      >
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -110,6 +123,21 @@ function Modal() {
                       setImage(e.target.files[0]);
                     }}
                   />
+                </div>
+
+                <div className="mt-4">
+                  <button
+                    disabled={!newTaskInput}
+                    type="submit"
+                    className="inline-flex justify-center rounded-md border 
+                    border-transparent bg-blue-100 px-4 py-2 text-sm font-medium
+                     text-blue-900 hover:bg-blue-200 focus:outline-none 
+                     focus-visible:ring-2 focus-visible:ring-blue-500 
+                     focus-visible:ring-offset-2 disabled:bg-gray-100 
+                     disabled:text-gray-300 disabled:cursor-not-allowed"
+                  >
+                    Add Task
+                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
