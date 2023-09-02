@@ -84,8 +84,6 @@ export const useBoardStore = create((set, get) => ({
       }
     );
 
-    set({ newTaskInput: "wa safi" });
-
     set((state) => {
       const newColumns = new Map(state.board.columns);
 

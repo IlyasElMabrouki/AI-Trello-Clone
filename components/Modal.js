@@ -28,6 +28,7 @@ function Modal() {
   const handleSubmit = (e) => {
     e.preventDefault();
     addTask(newTaskInput, newTaskType, image);
+    setNewTaskInput('');
     setImage(null);
     closeModal();
   };
@@ -99,17 +100,6 @@ function Modal() {
                     <PhotoIcon className="h-6 w-6 mr-2 inline-block" />
                     Upload Image
                   </button>
-                  {image && (
-                    <Image
-                      alt="Uploaded Image"
-                      width={200}
-                      height={200}
-                      className="w-full h-44 object-cover mt-2 filter hover:grayscal 
-                      transition-all duration-150 cursor-not-allowed"
-                      src={URL.createObjectURL(image)}
-                      onClick={() => setImage(null)}
-                    />
-                  )}
                 </div>
 
                 <div>
